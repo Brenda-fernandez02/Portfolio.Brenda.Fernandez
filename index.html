@@ -155,4 +155,80 @@
   .orb {
     width: 320px; height: 320px;
     border-radius: 50%;
-    background: conic-gradient
+    background: conic-gradient(from 180deg at 50% 50%,
+      #7b5cf0 0deg, #c8f060 120deg, #7b5cf0 240deg, #c8f060 360deg);
+    filter: blur(60px);
+    opacity: 0.5;
+    animation: spin 12s linear infinite;
+  }
+  .orb-inner {
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+  }
+
+  /* SOBRE MÍ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text { font-size: 1rem; color: var(--muted); font-weight: 300; }
+  .about-text p + p { margin-top: 1rem; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+  .stat {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+
+  /* HABILIDADES */
+  .skills-section { background: var(--surface); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+  .skill-card {
+    padding: 2rem;
+    background: var(--bg);
+    border
