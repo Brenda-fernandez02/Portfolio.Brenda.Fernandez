@@ -5,95 +5,546 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brenda — Portfolio IA</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-
 <style>
-/* TODO TU CSS EXACTAMENTE IGUAL (NO CAMBIADO) */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-  --bg: #0a0a0f;
-  --surface: #111118;
-  --border: rgba(255,255,255,0.07);
-  --accent: #c8f060;
-  --accent2: #7b5cf0;
-  --text: #f0ede8;
-  --muted: rgba(240,237,232,0.45);
-  --font-head: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-}
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: rgba(255,255,255,0.07);
+    --accent: #c8f060;
+    --accent2: #7b5cf0;
+    --text: #f0ede8;
+    --muted: rgba(240,237,232,0.45);
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
 
-/* (todo tu CSS sigue EXACTAMENTE igual…) */
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,92,240,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 30%;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,240,96,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-text { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--accent);
+  }
+  h1 {
+    font-family: var(--font-head);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+  h1 span {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(200,240,96,0.6);
+  }
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(200,240,96,0.25);
+  }
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+  .orb {
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: conic-gradient(from 180deg at 50% 50%,
+      #7b5cf0 0deg, #c8f060 120deg, #7b5cf0 240deg, #c8f060 360deg);
+    filter: blur(60px);
+    opacity: 0.5;
+    animation: spin 12s linear infinite;
+  }
+  .orb-inner {
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  h2 {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+  }
+
+  /* SOBRE MÍ */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-text { font-size: 1rem; color: var(--muted); font-weight: 300; }
+  .about-text p + p { margin-top: 1rem; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+  .stat {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+
+  /* HABILIDADES */
+  .skills-section { background: var(--surface); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+  .skill-card {
+    padding: 2rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .skill-card:hover {
+    background: rgba(123,92,240,0.06);
+    border-color: rgba(123,92,240,0.3);
+  }
+  .skill-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .skill-name {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .skill-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  /* PROYECTOS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+  .project-card {
+    padding: 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover { background: rgba(200,240,96,0.03); }
+  .project-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid rgba(123,92,240,0.4);
+    padding: 0.25rem 0.7rem;
+    border-radius: 2px;
+    margin-bottom: 1.2rem;
+  }
+  .project-title {
+    font-family: var(--font-head);
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+  .project-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+  .project-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.5rem;
+  }
+  .tool-pill {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* MODIFICACIÓN ESTILO NETFLIX PARA EL VIDEO */
+  .project-card.video-card {
+    grid-column: 1 / -1; /* Ocupa todo el ancho */
+    display: flex;
+    flex-direction: column;
+    padding: 0; /* Quitamos padding para que el video respire */
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+
+  .video-wrapper {
+    width: 100%;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    aspect-ratio: 16 / 9; /* Mantiene proporción cinemática */
+    transition: transform 0.5s ease;
+  }
+
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Cambiado a contain para que no corte tu cara */
+    display: block;
+  }
+
+  .video-wrapper:hover {
+    transform: scale(1.01); /* Pequeño zoom tipo Netflix */
+  }
+
+  .video-badge {
+    position: absolute;
+    top: 1.5rem; left: 1.5rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    padding: 0.5rem 1rem;
+    z-index: 10;
+  }
+
+  .video-info {
+    padding: 3rem; /* Espaciado generoso debajo del video */
+    background: linear-gradient(to bottom, rgba(17,17,24,0), var(--surface) 20%);
+  }
+
+  @media (max-width: 768px) {
+    .video-info { padding: 1.5rem; }
+  }
+
+  /* FORMACIÓN */
+  .education-section { background: var(--surface); }
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+  .timeline-item {
+    position: relative;
+    padding: 0 0 3rem 2rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.4rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--accent);
+    transform: translateX(-3.5px);
+  }
+  .timeline-year {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-title {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+  .timeline-org { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.7rem; }
+  .timeline-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  /* CONTACTO */
+  .contact-section {
+    text-align: center;
+    background: var(--bg);
+    padding: 6rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-section h2 { margin-bottom: 1rem; }
+  .contact-section p { color: var(--muted); max-width: 440px; margin: 0 auto 3rem; font-size: 1rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.8rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a0a0f;
+  }
+  .contact-link.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a0a0f;
+    font-weight: 700;
+    font-family: var(--font-head);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
 </style>
 </head>
-
 <body>
 
-<!-- TODO TU HTML IGUAL HASTA PROYECTOS -->
+<nav>
+  <div class="nav-logo">B.</div>
+  <ul class="nav-links">
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#experiencia">Experiencia</a></li>
+    <li><a href="#formacion">Formación</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow fade-in">Técnico Superior en Administración y Finanzas · IA</div>
+    <h1 class="fade-in delay-1">Hola,<br>soy <span>Brenda</span></h1>
+    <p class="hero-desc fade-in delay-2">Especializándome en Inteligencia Artificial para llevar la eficiencia operativa al siguiente nivel.</p>
+    <a href="#proyectos" class="hero-cta fade-in delay-3">Ver mis proyectos →</a>
+  </div>
+  <div class="hero-visual fade-in delay-4">
+    <div class="orb"></div>
+    <div class="orb-inner" style="overflow:hidden; padding:0;">
+      <img src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/foto.jpg" alt="Brenda" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+    </div>
+  </div>
+</section>
 
 <section id="proyectos">
   <div class="section-label">— Proyectos</div>
   <h2>Lo que he construido</h2>
   <div class="projects-grid">
 
-    <!-- TARJETA VÍDEO AVATAR (MEJORADA) -->
     <div class="project-card video-card">
       <div class="video-wrapper">
-        <video 
-          id="avatarVideo"
-          muted
-          playsinline
-          preload="metadata"
-          controls
-          controlsList="nodownload"
-          poster="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/foto.jpg"
-          style="max-height:220px;"
-        >
+        <video controls preload="metadata" playsinline>
           <source src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/avatar.mp4" type="video/mp4">
-          Tu navegador no soporta la reproducción de vídeo HTML5.
+          Tu navegador no soporta el video.
         </video>
-
-        <div class="video-badge">▶ Demo en vídeo</div>
+        <div class="video-badge">PREVIEW IA</div>
       </div>
-
       <div class="video-info">
         <div class="project-tag">Avatar IA</div>
         <div class="project-title">Mi avatar generado con IA</div>
-        <div class="project-desc">
-          Vídeo creado con inteligencia artificial que genera un avatar realista a partir de mi voz e imagen. 
-          Una muestra del potencial de los modelos generativos aplicados a la comunicación digital.
-        </div>
-
-        <div class="project-tools" style="margin-top: 1.5rem;">
+        <div class="project-desc">Vídeo cinemático creado con modelos generativos para demostrar la síntesis de voz y video aplicada a la comunicación corporativa.</div>
+        <div class="project-tools">
+          <span class="tool-pill">HeyGen</span>
+          <span class="tool-pill">ElevenLabs</span>
           <span class="tool-pill">IA Generativa</span>
-          <span class="tool-pill">Avatar IA</span>
-          <span class="tool-pill">Síntesis de voz</span>
         </div>
       </div>
     </div>
 
-    <!-- RESTO DE TUS PROYECTOS IGUAL (NO CAMBIADO) -->
-
+    <div class="project-card">
+      <div class="project-tag">Prompting</div>
+      <div class="project-title">Sistema de prompts</div>
+      <div class="project-desc">Optimización de flujos para soporte al cliente.</div>
+      <div class="project-tools"><span class="tool-pill">ChatGPT</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">Automatización</div>
+      <div class="project-title">Agente de investigación</div>
+      <div class="project-desc">Búsqueda y síntesis automática de datos.</div>
+      <div class="project-tools"><span class="tool-pill">Make</span></div>
+    </div>
   </div>
 </section>
 
-<!-- TODO EL RESTO DE TU HTML IGUAL -->
-
-<!-- SCRIPT PARA AUTOPLAY INTELIGENTE -->
-<script>
-const video = document.getElementById('avatarVideo');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      video.play().catch(() => {});
-    } else {
-      video.pause();
-    }
-  });
-}, { threshold: 0.6 });
-
-observer.observe(video);
-</script>
+<footer>
+  <span>© 2026 Brenda Fernández — Portfolio IA</span>
+  <span>Hecho con pasión y muchos prompts</span>
+</footer>
 
 </body>
 </html>
