@@ -1,32 +1,99 @@
-<!-- TARJETA VÍDEO AVATAR -->
-<div class="project-card video-card">
-  <div class="video-wrapper">
-    <video 
-      controls 
-      preload="metadata" 
-      playsinline
-      controlsList="nodownload"
-      poster="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/foto.jpg"
-      style="max-height:220px; border-radius:4px;"
-    >
-      <source src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/avatar.mp4" type="video/mp4">
-      Tu navegador no soporta la reproducción de vídeo HTML5.
-    </video>
-    <div class="video-badge">▶ Demo en vídeo</div>
-  </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brenda — Portfolio IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 
-  <div class="video-info">
-    <div class="project-tag">Avatar IA</div>
-    <div class="project-title">Mi avatar generado con IA</div>
-    <div class="project-desc">
-      Vídeo creado con inteligencia artificial que genera un avatar realista a partir de mi voz e imagen. 
-      Una muestra del potencial de los modelos generativos aplicados a la comunicación digital.
+<style>
+/* TODO TU CSS EXACTAMENTE IGUAL (NO CAMBIADO) */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --border: rgba(255,255,255,0.07);
+  --accent: #c8f060;
+  --accent2: #7b5cf0;
+  --text: #f0ede8;
+  --muted: rgba(240,237,232,0.45);
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+/* (todo tu CSS sigue EXACTAMENTE igual…) */
+</style>
+</head>
+
+<body>
+
+<!-- TODO TU HTML IGUAL HASTA PROYECTOS -->
+
+<section id="proyectos">
+  <div class="section-label">— Proyectos</div>
+  <h2>Lo que he construido</h2>
+  <div class="projects-grid">
+
+    <!-- TARJETA VÍDEO AVATAR (MEJORADA) -->
+    <div class="project-card video-card">
+      <div class="video-wrapper">
+        <video 
+          id="avatarVideo"
+          muted
+          playsinline
+          preload="metadata"
+          controls
+          controlsList="nodownload"
+          poster="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/foto.jpg"
+          style="max-height:220px;"
+        >
+          <source src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/avatar.mp4" type="video/mp4">
+          Tu navegador no soporta la reproducción de vídeo HTML5.
+        </video>
+
+        <div class="video-badge">▶ Demo en vídeo</div>
+      </div>
+
+      <div class="video-info">
+        <div class="project-tag">Avatar IA</div>
+        <div class="project-title">Mi avatar generado con IA</div>
+        <div class="project-desc">
+          Vídeo creado con inteligencia artificial que genera un avatar realista a partir de mi voz e imagen. 
+          Una muestra del potencial de los modelos generativos aplicados a la comunicación digital.
+        </div>
+
+        <div class="project-tools" style="margin-top: 1.5rem;">
+          <span class="tool-pill">IA Generativa</span>
+          <span class="tool-pill">Avatar IA</span>
+          <span class="tool-pill">Síntesis de voz</span>
+        </div>
+      </div>
     </div>
 
-    <div class="project-tools" style="margin-top: 1.5rem;">
-      <span class="tool-pill">IA Generativa</span>
-      <span class="tool-pill">Avatar IA</span>
-      <span class="tool-pill">Síntesis de voz</span>
-    </div>
+    <!-- RESTO DE TUS PROYECTOS IGUAL (NO CAMBIADO) -->
+
   </div>
-</div>
+</section>
+
+<!-- TODO EL RESTO DE TU HTML IGUAL -->
+
+<!-- SCRIPT PARA AUTOPLAY INTELIGENTE -->
+<script>
+const video = document.getElementById('avatarVideo');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  });
+}, { threshold: 0.6 });
+
+observer.observe(video);
+</script>
+
+</body>
+</html>
