@@ -253,20 +253,34 @@
   .skill-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
 
   /* PROYECTOS */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1px;
+  /* CARRUSEL */
+  .carousel-outer {
+    position: relative;
+  }
+  .carousel-track-wrap {
+    overflow: hidden;
     border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+  .projects-grid {
+    display: flex;
+    gap: 0;
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
   }
   .project-card {
+    min-width: 360px;
+    flex-shrink: 0;
     padding: 2.5rem;
     background: var(--surface);
-    border: 1px solid var(--border);
+    border-right: 1px solid var(--border);
     position: relative;
     overflow: hidden;
     transition: background 0.3s;
+    display: flex;
+    flex-direction: column;
   }
+  .project-card:last-child { border-right: none; }
   .project-card::before {
     content: '';
     position: absolute;
@@ -279,6 +293,118 @@
   }
   .project-card:hover::before { transform: scaleX(1); }
   .project-card:hover { background: rgba(200,240,96,0.03); }
+
+  /* TARJETA VÍDEO dentro del carrusel */
+  .project-card.video-card {
+    min-width: 480px;
+    padding: 0;
+    flex-direction: column;
+    background: var(--surface);
+  }
+  .video-wrapper {
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .video-badge {
+    position: absolute;
+    top: 0.7rem; left: 0.7rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    z-index: 5;
+  }
+  .video-info { padding: 1.5rem 2rem; }
+
+  /* TARJETA ARCHIVO (TFG / Excel) */
+  .project-card.file-card { min-width: 320px; }
+  .file-preview {
+    background: rgba(123,92,240,0.08);
+    border: 1px solid rgba(123,92,240,0.2);
+    border-radius: 4px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .file-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  .file-meta { font-size: 0.75rem; color: var(--muted); }
+  .file-name { font-size: 0.85rem; color: var(--text); font-weight: 500; margin-bottom: 0.2rem; }
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: auto;
+    padding: 0.6rem 1.2rem;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 2px;
+    font-size: 0.78rem;
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+    width: fit-content;
+  }
+  .download-btn:hover { background: var(--accent); color: #0a0a0f; }
+
+  /* CONTROLES CARRUSEL */
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .carousel-btn {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .carousel-btn:hover { border-color: var(--accent); background: rgba(200,240,96,0.08); }
+  .carousel-btn:disabled { opacity: 0.3; cursor: default; }
+  .carousel-dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .carousel-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .carousel-dot.active { background: var(--accent); transform: scale(1.4); }
+
   .project-tag {
     display: inline-block;
     font-size: 0.7rem;
@@ -313,47 +439,6 @@
     color: var(--muted);
     letter-spacing: 0.04em;
   }
-
-  /* TARJETA VÍDEO — COMPACTA HORIZONTAL */
-  .project-card.video-card {
-    grid-column: 1 / -1;
-    padding: 1.5rem;
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 2rem;
-    align-items: center;
-    background: var(--surface);
-    overflow: hidden;
-  }
-  .video-wrapper {
-    position: relative;
-    background: #000;
-    border-radius: 4px;
-    overflow: hidden;
-    width: 280px;
-    aspect-ratio: 9/16;
-    flex-shrink: 0;
-  }
-  .video-wrapper video {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-  }
-  .video-badge {
-    position: absolute;
-    top: 0.6rem; left: 0.6rem;
-    background: var(--accent);
-    color: #0a0a0f;
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.25rem 0.6rem;
-    border-radius: 2px;
-    z-index: 5;
-  }
-  .video-info { padding: 0; }
 
   /* TIMELINE */
   .education-section { background: var(--surface); }
@@ -516,7 +601,7 @@
     <div>
       <div class="stats-grid">
         <div class="stat">
-          <div class="stat-num">1+</div>
+          <div class="stat-num">3+</div>
           <div class="stat-label">Años de experiencia laboral</div>
         </div>
         <div class="stat">
@@ -576,60 +661,118 @@
 <section id="proyectos">
   <div class="section-label">— Proyectos</div>
   <h2>Lo que he construido</h2>
-  <div class="projects-grid">
+  <div class="carousel-outer">
+    <div class="carousel-track-wrap">
+      <div class="projects-grid" id="carrusel">
 
-    <!-- TARJETA VÍDEO COMPACTA -->
-    <div class="project-card video-card">
-      <div class="video-wrapper">
-        <video controls preload="metadata" playsinline>
-          <source src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/avatar.mp4" type="video/mp4">
-          Tu navegador no soporta la reproducción de vídeo HTML5.
-        </video>
-        <div class="video-badge">▶ Demo</div>
-      </div>
-      <div class="video-info">
-        <div class="project-tag">Avatar IA</div>
-        <div class="project-title">Mi avatar generado con IA</div>
-        <div class="project-desc">Vídeo creado con inteligencia artificial que genera un avatar realista a partir de mi voz e imagen. Una muestra del potencial de los modelos generativos de última generación aplicados a la comunicación digital.</div>
-        <div class="project-tools">
-          <span class="tool-pill">IA Generativa</span>
-          <span class="tool-pill">Avatar IA</span>
-          <span class="tool-pill">Síntesis de voz</span>
+        <!-- TARJETA 1: VÍDEO AVATAR -->
+        <div class="project-card video-card">
+          <div class="video-wrapper">
+            <video controls preload="metadata" playsinline>
+              <source src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/avatar.mp4" type="video/mp4">
+              Tu navegador no soporta la reproducción de vídeo HTML5.
+            </video>
+            <div class="video-badge">▶ Demo</div>
+          </div>
+          <div class="video-info">
+            <div class="project-tag">Avatar IA</div>
+            <div class="project-title">Mi avatar generado con IA</div>
+            <div class="project-desc">Vídeo creado con inteligencia artificial que genera un avatar realista a partir de mi voz e imagen. Una muestra del potencial de los modelos generativos aplicados a la comunicación digital.</div>
+            <div class="project-tools">
+              <span class="tool-pill">IA Generativa</span>
+              <span class="tool-pill">Avatar IA</span>
+              <span class="tool-pill">Síntesis de voz</span>
+            </div>
+          </div>
         </div>
+
+        <!-- TARJETA 2: TFG -->
+        <div class="project-card file-card">
+          <div class="file-preview">
+            <span class="file-icon">📄</span>
+            <div>
+              <div class="file-name">TFG_BRENDA.pdf</div>
+              <div class="file-meta">Plan Empresarial · 113 páginas</div>
+            </div>
+          </div>
+          <div class="project-tag">TFG · Administración</div>
+          <div class="project-title">Enigma Room, S.L.</div>
+          <div class="project-desc">Plan empresarial completo para una empresa de escape rooms desarrollado como Trabajo de Fin de Grado. Incluye plan de marketing, análisis de mercado, constitución legal, plan de inversión, tesorería y análisis de rentabilidad.</div>
+          <div class="project-tools">
+            <span class="tool-pill">Plan empresarial</span>
+            <span class="tool-pill">Marketing</span>
+            <span class="tool-pill">Finanzas</span>
+            <span class="tool-pill">Contabilidad</span>
+          </div>
+          <a href="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/TFG_BRENDA.pdf" target="_blank" class="download-btn">↓ Descargar TFG</a>
+        </div>
+
+        <!-- TARJETA 3: EXCEL CONTABILIDAD -->
+        <div class="project-card file-card">
+          <div class="file-preview">
+            <span class="file-icon">📊</span>
+            <div>
+              <div class="file-name">Contabilidad.xlsx</div>
+              <div class="file-meta">Excel Avanzado · Hoja de cálculo</div>
+            </div>
+          </div>
+          <div class="project-tag">Excel · Finanzas</div>
+          <div class="project-title">Modelo de Contabilidad</div>
+          <div class="project-desc">Hoja de cálculo avanzada con gestión contable, tablas dinámicas y fórmulas complejas. Demuestra el dominio de herramientas ofimáticas aplicadas al control financiero y administrativo de una empresa.</div>
+          <div class="project-tools">
+            <span class="tool-pill">Excel Avanzado</span>
+            <span class="tool-pill">Tablas dinámicas</span>
+            <span class="tool-pill">Contabilidad</span>
+          </div>
+          <a href="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/Contabilidad.xlsx" target="_blank" class="download-btn">↓ Descargar Excel</a>
+        </div>
+
+        <!-- TARJETA 4: PROMPTING -->
+        <div class="project-card">
+          <div class="project-tag">Prompting</div>
+          <div class="project-title">Sistema de prompts para atención al cliente</div>
+          <div class="project-desc">Diseño y optimización de un conjunto de prompts para automatizar respuestas de soporte al cliente con coherencia de marca y tono empático.</div>
+          <div class="project-tools">
+            <span class="tool-pill">Claude</span>
+            <span class="tool-pill">ChatGPT</span>
+            <span class="tool-pill">Notion</span>
+          </div>
+        </div>
+
+        <!-- TARJETA 5: CONTENIDO -->
+        <div class="project-card">
+          <div class="project-tag">Contenido</div>
+          <div class="project-title">Pipeline de contenido con IA generativa</div>
+          <div class="project-desc">Creación de un flujo completo para generar, editar y publicar contenido en redes sociales usando modelos de lenguaje e imagen.</div>
+          <div class="project-tools">
+            <span class="tool-pill">ChatGPT</span>
+            <span class="tool-pill">Midjourney</span>
+            <span class="tool-pill">Make</span>
+            <span class="tool-pill">Canva IA</span>
+          </div>
+        </div>
+
+        <!-- TARJETA 6: AUTOMATIZACIÓN -->
+        <div class="project-card">
+          <div class="project-tag">Automatización</div>
+          <div class="project-title">Agente de investigación automatizado</div>
+          <div class="project-desc">Desarrollo de un agente IA capaz de buscar, sintetizar y presentar información de múltiples fuentes sobre cualquier tema en segundos.</div>
+          <div class="project-tools">
+            <span class="tool-pill">Perplexity</span>
+            <span class="tool-pill">Claude</span>
+            <span class="tool-pill">Zapier</span>
+            <span class="tool-pill">Google Docs</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="project-card">
-      <div class="project-tag">Prompting</div>
-      <div class="project-title">Sistema de prompts para atención al cliente</div>
-      <div class="project-desc">Diseño y optimización de un conjunto de prompts para automatizar respuestas de soporte al cliente con coherencia de marca y tono empático.</div>
-      <div class="project-tools">
-        <span class="tool-pill">Claude</span>
-        <span class="tool-pill">ChatGPT</span>
-        <span class="tool-pill">Notion</span>
-      </div>
-    </div>
-    <div class="project-card">
-      <div class="project-tag">Contenido</div>
-      <div class="project-title">Pipeline de contenido con IA generativa</div>
-      <div class="project-desc">Creación de un flujo completo para generar, editar y publicar contenido en redes sociales usando modelos de lenguaje e imagen.</div>
-      <div class="project-tools">
-        <span class="tool-pill">ChatGPT</span>
-        <span class="tool-pill">Midjourney</span>
-        <span class="tool-pill">Make</span>
-        <span class="tool-pill">Canva IA</span>
-      </div>
-    </div>
-    <div class="project-card">
-      <div class="project-tag">Automatización</div>
-      <div class="project-title">Agente de investigación automatizado</div>
-      <div class="project-desc">Desarrollo de un agente IA capaz de buscar, sintetizar y presentar información de múltiples fuentes sobre cualquier tema en segundos.</div>
-      <div class="project-tools">
-        <span class="tool-pill">Perplexity</span>
-        <span class="tool-pill">Claude</span>
-        <span class="tool-pill">Zapier</span>
-        <span class="tool-pill">Google Docs</span>
-      </div>
+    <!-- CONTROLES -->
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="prev" onclick="moverCarrusel(-1)">←</button>
+      <button class="carousel-btn" id="next" onclick="moverCarrusel(1)">→</button>
+      <div class="carousel-dots" id="dots"></div>
     </div>
   </div>
 </section>
@@ -684,6 +827,7 @@
   <p>Estoy abierta a nuevas oportunidades en IA, administración y proyectos donde pueda aportar mi perfil híbrido. Incorporación inmediata.</p>
   <div class="contact-links">
     <a href="mailto:brendafernandezsanchez5@gmail.com" class="contact-link primary">Envíame un email</a>
+    <a href="tel:+34678346909" class="contact-link">+34 678 34 69 09</a>
     <a href="https://github.com/brenda-fernandez02" target="_blank" class="contact-link">GitHub</a>
   </div>
 </section>
@@ -692,6 +836,56 @@
   <span>© 2026 Brenda Fernández — Portfolio IA</span>
   <span>Hecho con pasión y muchos prompts</span>
 </footer>
+
+<script>
+  const track = document.getElementById('carrusel');
+  const cards = track.querySelectorAll('.project-card');
+  const dotsContainer = document.getElementById('dots');
+  let current = 0;
+
+  function anchoCarta() {
+    return cards[0].getBoundingClientRect().width;
+  }
+
+  // Crear dots
+  cards.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => irA(i);
+    dotsContainer.appendChild(d);
+  });
+
+  function actualizarDots() {
+    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+    document.getElementById('prev').disabled = current === 0;
+    document.getElementById('next').disabled = current === cards.length - 1;
+  }
+
+  function irA(idx) {
+    current = Math.max(0, Math.min(idx, cards.length - 1));
+    let offset = 0;
+    for (let i = 0; i < current; i++) {
+      offset += cards[i].getBoundingClientRect().width;
+    }
+    track.style.transform = `translateX(-${offset}px)`;
+    actualizarDots();
+  }
+
+  function moverCarrusel(dir) { irA(current + dir); }
+
+  // Swipe táctil
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) moverCarrusel(diff > 0 ? 1 : -1);
+  });
+
+  actualizarDots();
+  window.addEventListener('resize', () => irA(current));
+</script>
 
 <script>
 (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="iN0moiTO7qqHP2qdaosSr";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
