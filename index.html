@@ -41,82 +41,94 @@ nav {
   backdrop-filter: blur(12px);
 }
 
-/* HERO */
+/* HERO ORIGINAL RESTAURADO */
 .hero {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
   padding: 7rem 3rem 4rem;
 }
 
-/* SECTIONS */
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.orb {
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: conic-gradient(from 180deg,
+    #7b5cf0, #c8f060, #7b5cf0);
+  filter: blur(60px);
+  opacity: 0.5;
+  animation: spin 12s linear infinite;
+}
+
+.orb-inner {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* SECCIONES */
 section { padding: 6rem 3rem; }
 
 /* =========================
-   VIDEO MEJORADO
+   PROYECTOS CARRUSEL
 ========================= */
-.video-wrapper {
-  position: relative;
-  background: black;
+.carousel-track-wrap {
   overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.projects-grid {
+  display: flex;
+  transition: transform 0.6s ease;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 8px;
-  max-height: 420px; /* MÁS GRANDE */
+}
+
+/* 1 PROYECTO POR VISTA */
+.project-card {
+  min-width: 100%;
+  max-width: 100%;
+  padding: 2.5rem;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* efecto “propuesta premium” */
+.project-card.active {
+  transform: scale(1.01);
+  box-shadow: 0 0 40px rgba(200,240,96,0.08);
+}
+
+/* VIDEO CORREGIDO */
+.video-wrapper {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: black;
 }
 
 .video-wrapper video {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* evita cortes de cara */
-  background: black;
+  object-fit: cover; /* mejor encuadre visual */
 }
 
-.video-badge {
-  position: absolute;
-  top: 0.6rem;
-  left: 0.6rem;
-  background: var(--accent);
-  color: black;
-  font-size: 0.6rem;
-  padding: 0.2rem 0.5rem;
-  font-weight: 800;
-}
-
-/* =========================
-   CARRUSEL 1 PROYECTO
-========================= */
-.carousel-track-wrap {
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-}
-
-.projects-grid {
-  display: flex;
-  transition: transform 0.55s ease;
-  width: 100%;
-}
-
-/* SOLO 1 PROYECTO VISIBLE */
-.project-card {
-  min-width: 100%;
-  max-width: 100%;
-  flex-shrink: 0;
-  padding: 2rem;
-  background: var(--surface);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* TITULOS */
-.project-title {
-  font-family: var(--font-head);
-  font-size: 1.1rem;
-}
-
-/* BOTONES CARRUSEL */
+/* BOTONES */
 .carousel-controls {
   display: flex;
   justify-content: center;
@@ -125,8 +137,8 @@ section { padding: 6rem 3rem; }
 }
 
 .carousel-btn {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: 1px solid var(--border);
   background: var(--surface);
@@ -134,6 +146,11 @@ section { padding: 6rem 3rem; }
   cursor: pointer;
 }
 
+.carousel-btn:hover {
+  border-color: var(--accent);
+}
+
+/* DOTS */
 .carousel-dot {
   width: 6px;
   height: 6px;
@@ -144,11 +161,6 @@ section { padding: 6rem 3rem; }
 .carousel-dot.active {
   background: var(--accent);
 }
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .hero { grid-template-columns: 1fr; }
-}
 </style>
 </head>
 
@@ -158,49 +170,60 @@ section { padding: 6rem 3rem; }
   <div>B.</div>
 </nav>
 
+<!-- HERO RESTAURADO -->
 <section class="hero">
   <div>
     <h1>Hola, soy Brenda</h1>
   </div>
 
-  <div>
-    <div class="video-wrapper">
-      <video controls playsinline>
-        <source src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/avatar.mp4">
-      </video>
-      <div class="video-badge">AI VIDEO</div>
+  <div class="hero-visual">
+    <div class="orb"></div>
+    <div class="orb-inner">
+      <img src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/foto.jpg"
+           style="width:100%;height:100%;object-fit:cover;">
     </div>
   </div>
 </section>
 
+<!-- PROYECTOS (VIDEO DE VUELTA AQUÍ) -->
 <section id="proyectos">
-  <h2>Proyectos</h2>
 
-  <div class="carousel-track-wrap">
-    <div class="projects-grid" id="carrusel">
+<h2>Proyectos</h2>
 
-      <div class="project-card">
-        <div class="project-title">Avatar IA</div>
-        <p>Vídeo generado con IA</p>
+<div class="carousel-track-wrap">
+  <div class="projects-grid" id="carrusel">
+
+    <!-- VIDEO -->
+    <div class="project-card active">
+      <div class="video-wrapper">
+        <video controls>
+          <source src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/avatar.mp4">
+        </video>
       </div>
 
-      <div class="project-card">
-        <div class="project-title">TFG Empresa</div>
-        <p>Plan empresarial completo</p>
-      </div>
-
-      <div class="project-card">
-        <div class="project-title">Excel Contabilidad</div>
-        <p>Modelo financiero avanzado</p>
-      </div>
-
+      <h3>Avatar IA</h3>
+      <p>Video generado con inteligencia artificial</p>
     </div>
-  </div>
 
-  <div class="carousel-controls">
-    <button class="carousel-btn" onclick="move(-1)">←</button>
-    <button class="carousel-btn" onclick="move(1)">→</button>
+    <!-- PROYECTO 2 -->
+    <div class="project-card">
+      <h3>TFG Empresa</h3>
+      <p>Plan empresarial completo</p>
+    </div>
+
+    <!-- PROYECTO 3 -->
+    <div class="project-card">
+      <h3>Excel Contabilidad</h3>
+      <p>Modelo financiero avanzado</p>
+    </div>
+
   </div>
+</div>
+
+<div class="carousel-controls">
+  <button class="carousel-btn" onclick="move(-1)">←</button>
+  <button class="carousel-btn" onclick="move(1)">→</button>
+</div>
 
 </section>
 
@@ -212,6 +235,10 @@ let index = 0;
 
 function update() {
   track.style.transform = `translateX(-${index * 100}%)`;
+
+  cards.forEach((c, i) => {
+    c.classList.toggle("active", i === index);
+  });
 }
 
 function move(dir) {
@@ -219,7 +246,6 @@ function move(dir) {
   update();
 }
 
-// swipe móvil
 let startX = 0;
 
 track.addEventListener("touchstart", e => {
