@@ -1,108 +1,777 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brenda — Portfolio IA</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        /* RESET TOTAL PARA EVITAR PANTALLA NEGRA */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --bg-color: #0a0a0f;
-            --card-color: #111118;
-            --accent-color: #c8f060;
-            --text-color: #f0ede8;
-            --border-color: rgba(255,255,255,0.1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brenda — Portfolio IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            background-color: var(--bg-color) !important;
-            color: var(--text-color) !important;
-            font-family: 'DM Sans', sans-serif;
-            overflow-x: hidden;
-        }
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: rgba(255,255,255,0.07);
+    --accent: #c8f060;
+    --accent2: #7b5cf0;
+    --text: #f0ede8;
+    --muted: rgba(240,237,232,0.45);
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
 
-        nav {
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            background: rgba(10,10,15,0.9);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-        }
+  html { scroll-behavior: smooth; }
 
-        .hero {
-            padding: 150px 5% 50px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            min-height: 80vh;
-        }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-        .hero-text { flex: 1; min-width: 300px; }
-        
-        h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(3rem, 8vw, 5rem);
-            line-height: 1;
-            margin-bottom: 20px;
-        }
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+  }
 
-        h1 span {
-            color: transparent;
-            -webkit-text-stroke: 1px var(--accent-color);
-        }
+  .nav-logo {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
 
-        /* SECCIÓN PROYECTOS - AJUSTE PARA VIDEO VERTICAL (IMAGEN 1) */
-        .projects-section { padding: 80px 5%; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
 
-        .projects-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
 
-        .project-card {
-            background: var(--card-color);
-            border-radius: 15px;
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            transition: 0.3s;
-        }
+  .nav-links a:hover { color: var(--text); }
 
-        .project-card:hover { border-color: var(--accent-color); }
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
 
-        /* EL FIX DEL VIDEO */
-        .video-box {
-            width: 100%;
-            height: 500px; /* Altura suficiente para video vertical */
-            background: #000;
-            display: flex;
-            justify-content: center;
-        }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,92,240,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
-        video {
-            height: 100%;
-            width: auto;
-            max-width: 100%;
-            object-fit: contain; /* Esto hace que se vea como en tu Foto 1 */
-        }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: 30%;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,240,96,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
 
-        .project-info { padding: 20px; }
-        .project-info h3 { font-family: 'Syne', sans-serif; margin-bottom: 10px; }
-        .project-info p { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+  .hero-text { position: relative; z-index: 1; }
 
-        /* IMAGEN CIRCULAR DEL HERO */
-        .hero-img {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            position: relative;
-        }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
 
-        .
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--font-head);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 span {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(200,240,96,0.6);
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    padding: 0.85rem 2rem;
+    border-radius: 2px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(200,240,96,0.25);
+  }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .orb {
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: conic-gradient(from 180deg at 50% 50%,
+      #7b5cf0 0deg, #c8f060 120deg, #7b5cf0 240deg, #c8f060 360deg);
+    filter: blur(60px);
+    opacity: 0.5;
+    animation: spin 12s linear infinite;
+  }
+
+  .orb-inner {
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  section { padding: 6rem 3rem; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: var(--font-head);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text { font-size: 1rem; color: var(--muted); font-weight: 300; }
+  .about-text p + p { margin-top: 1rem; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+
+  .stat {
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+
+  .skills-section { background: var(--surface); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+
+  .skill-card {
+    padding: 2rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .skill-card:hover {
+    background: rgba(123,92,240,0.06);
+    border-color: rgba(123,92,240,0.3);
+  }
+
+  .skill-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .skill-name {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .skill-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  .carousel-outer {
+    position: relative;
+  }
+
+  .carousel-track-wrap {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.04), rgba(0,0,0,0.12));
+    padding: 1rem 0;
+  }
+
+  .projects-grid {
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.5s ease;
+    will-change: transform;
+    padding: 0 1rem;
+  }
+
+  .project-card {
+    min-width: 80%;
+    max-width: 80%;
+    flex-shrink: 0;
+    padding: 1.2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, background 0.3s, opacity 0.3s;
+    display: flex;
+    flex-direction: column;
+    opacity: 0.65;
+    transform: scale(0.92);
+  }
+
+  .project-card.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .project-card.active::before,
+  .project-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .project-card:hover {
+    background: rgba(200,240,96,0.03);
+  }
+
+  .project-card.video-card {
+    padding: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  }
+
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .video-wrapper video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    background: #000;
+  }
+
+  .video-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.25), transparent 35%);
+    pointer-events: none;
+  }
+
+  .video-badge {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-size: 0.55rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.55rem;
+    border-radius: 3px;
+    z-index: 5;
+  }
+
+  .video-info {
+    padding: 1.2rem 1.2rem 1.4rem;
+  }
+
+  .project-card.file-card {
+    padding: 1.2rem;
+  }
+
+  .file-preview {
+    background: rgba(123,92,240,0.08);
+    border: 1px solid rgba(123,92,240,0.2);
+    border-radius: 10px;
+    padding: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .file-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .file-meta {
+    font-size: 0.65rem;
+    color: var(--muted);
+  }
+
+  .file-name {
+    font-size: 0.72rem;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 0.1rem;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: auto;
+    padding: 0.45rem 0.85rem;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    border-radius: 3px;
+    font-size: 0.65rem;
+    font-family: var(--font-head);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+    width: fit-content;
+  }
+
+  .download-btn:hover {
+    background: var(--accent);
+    color: #0a0a0f;
+  }
+
+  .carousel-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .carousel-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .carousel-btn:hover {
+    border-color: var(--accent);
+    background: rgba(200,240,96,0.08);
+    transform: scale(1.05);
+  }
+
+  .carousel-btn:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .carousel-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .carousel-dot.active {
+    background: var(--accent);
+    transform: scale(1.5);
+  }
+
+  .project-tag {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    border: 1px solid rgba(123,92,240,0.4);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    margin-bottom: 0.7rem;
+  }
+
+  .project-title {
+    font-family: var(--font-head);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .project-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.8rem;
+  }
+
+  .tool-pill {
+    font-size: 0.62rem;
+    padding: 0.15rem 0.5rem;
+    background: rgba(255,255,255,0.05);
+    border-radius: 2px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+  }
+
+  .education-section { background: var(--surface); }
+
+  .timeline { position: relative; padding-left: 2rem; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item { position: relative; padding: 0 0 3rem 2rem; }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.4rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--accent);
+    transform: translateX(-3.5px);
+  }
+
+  .timeline-year {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-title {
+    font-family: var(--font-head);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-org { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.7rem; }
+  .timeline-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  .contact-section {
+    text-align: center;
+    background: var(--bg);
+    padding: 6rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-section h2 { margin-bottom: 1rem; }
+
+  .contact-section p {
+    color: var(--muted);
+    max-width: 440px;
+    margin: 0 auto 3rem;
+    font-size: 1rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.8rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+
+  .contact-link:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a0a0f;
+  }
+
+  .contact-link.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0a0a0f;
+    font-weight: 700;
+    font-family: var(--font-head);
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding-top: 8rem;
+      min-height: auto;
+    }
+    .hero-eyebrow { justify-content: center; }
+    .hero-desc { margin: 0 auto 2.5rem; }
+    .hero-visual { margin-top: 3rem; order: -1; }
+    .orb { width: 260px; height: 260px; }
+    .orb-inner { width: 180px; height: 180px; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .stats-grid { grid-template-columns: 1fr; }
+    .project-card { min-width: 92%; max-width: 92%; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  .fade-in { opacity: 0; transform: translateY(24px); animation: fadeUp 0.7s ease forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">B.</div>
+  <ul class="nav-links">
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#experiencia">Experiencia</a></li>
+    <li><a href="#formacion">Formación</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow fade-in">Técnico Superior en Administración y Finanzas · IA</div>
+    <h1 class="fade-in delay-1">Hola,<br>soy <span>Brenda</span></h1>
+    <p class="hero-desc fade-in delay-2">Técnico Superior en Administración y Finanzas con experiencia en banca y gestión documental, especializándome ahora en Inteligencia Artificial para llevar la eficiencia operativa al siguiente nivel.</p>
+    <a href="#proyectos" class="hero-cta fade-in delay-3">Ver mis proyectos →</a>
+  </div>
+  <div class="hero-visual fade-in delay-4">
+    <div class="orb"></div>
+    <div class="orb-inner" style="overflow:hidden; padding:0;">
+      <img src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/foto.jpg"
+           alt="Brenda Fernández"
+           style="width:100%; height:100%; object-fit:cover; border-radius:50%;"
+           onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\\'font-family:var(--font-head);font-size:4rem;font-weight:800;color:var(--accent);letter-spacing:-0.05em;\\'>B.</span>'">
+    </div>
+  </div>
+</section>
+
+<section id="sobre-mi">
+  <div class="section-label">— Sobre mí</div>
+  <h2>Mi historia con la IA</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Soy Brenda Fernández, Técnico Superior en Administración y Finanzas con experiencia real en sectores de alta responsabilidad como el bancario e hipotecario. He trabajado optimizando procesos, gestionando datos y atendiendo clientes en entornos exigentes.</p>
+      <p>Ahora doy un paso más: me estoy especializando en Inteligencia Artificial para combinar mi base administrativa con las herramientas del futuro. Creo que la IA aplicada a los procesos de negocio es una de las oportunidades más potentes del momento.</p>
+      <p>Me apasionan el prompting, la automatización y la IA generativa. Busco aportar valor en equipos que quieran transformar su forma de trabajar con inteligencia y criterio.</p>
+    </div>
+    <div>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-num">1+</div>
+          <div class="stat-label">Años de experiencia laboral</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Idiomas: ES, EN, IT, FR</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Herramientas IA dominadas</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">B2</div>
+          <div class="stat-label">Nivel de inglés</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="habilidades" class="skills-section">
+  <div class="section-label">— Habilidades</div>
+  <h2>Qué sé hacer</h2>
+  <div class="skills-grid">
+    <div class="skill-card"><span class="skill-icon">✦</span><div class="skill-name">Prompt Engineering</div><div class="skill-desc">Diseño prompts avanzados para ChatGPT, Claude, Gemini y otros LLMs para obtener resultados precisos y aplicables al mundo empresarial.</div></div>
+    <div class="skill-card"><span class="skill-icon">◈</span><div class="skill-name">IA Generativa</div><div class="skill-desc">Experiencia con herramientas de generación de imágenes, texto y vídeo. Creación de avatares y contenido asistido por IA.</div></div>
+    <div class="skill-card"><span class="skill-icon">⬡</span><div class="skill-name">Automatización con IA</div><div class="skill-desc">Creación de flujos de trabajo automatizados con Make y Zapier para optimizar procesos administrativos y operativos.</div></div>
+    <div class="skill-card"><span class="skill-icon">◎</span><div class="skill-name">Excel Avanzado</div><div class="skill-desc">Dominio de tablas dinámicas, fórmulas complejas, gestión de cobros, pagos y balances contables.</div></div>
+    <div class="skill-card"><span class="skill-icon">❖</span><div class="skill-name">Gestión Documental</div><div class="skill-desc">Validación y registro de expedientes hipotecarios, digitalización y auditoría de datos en bases corporativas de gran volumen.</div></div>
+    <div class="skill-card"><span class="skill-icon">◑</span><div class="skill-name">Atención al Cliente</div><div class="skill-desc">Experiencia en entornos bancarios y de captación. Comunicación asertiva, resolución de incidencias y gestión CRM.</div></div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="section-label">— Proyectos</div>
+  <h2>Lo que he construido</h2>
+  <div class="carousel-outer">
+    <div class="carousel-track-wrap">
+      <div class="projects-grid" id="carrusel">
+
+        <div class="project-card video-card">
+          <div class="video-wrapper">
+            <video controls preload="metadata" playsinline>
+              <source src="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/avatar.mp4" type="video/mp4">
+              Tu navegador no soporta la reproducción de vídeo HTML5.
+            </video>
+            <div class="video-badge">▶ Demo</
