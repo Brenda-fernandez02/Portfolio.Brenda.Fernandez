@@ -556,9 +556,84 @@
   .delay-2 { animation-delay: 0.25s; }
   .delay-3 { animation-delay: 0.4s; }
   .delay-4 { animation-delay: 0.55s; }
+
+  /* BANNER DISPONIBLE */
+  .available-banner {
+    position: fixed;
+    top: 72px; right: 2rem;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(10,10,15,0.9);
+    border: 1px solid rgba(200,240,96,0.3);
+    border-radius: 100px;
+    padding: 0.45rem 1rem;
+    backdrop-filter: blur(12px);
+    font-size: 0.75rem;
+    color: var(--text);
+    letter-spacing: 0.04em;
+  }
+  .available-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 0 0 rgba(74,222,128,0.6);
+    animation: pulse-dot 2s infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse-dot {
+    0% { box-shadow: 0 0 0 0 rgba(74,222,128,0.6); }
+    70% { box-shadow: 0 0 0 7px rgba(74,222,128,0); }
+    100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+  }
+  @media (max-width: 768px) { .available-banner { top: auto; bottom: 5rem; right: 1rem; } }
+
+  /* SECCIÓN HERRAMIENTAS */
+  .tools-section { background: var(--bg); }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+  }
+  .tool-card {
+    padding: 1.5rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    transition: background 0.3s, transform 0.2s;
+    text-align: center;
+  }
+  .tool-card:hover {
+    background: rgba(200,240,96,0.04);
+    transform: translateY(-3px);
+  }
+  .tool-logo {
+    width: 36px; height: 36px;
+    object-fit: contain;
+    filter: grayscale(0.3);
+    transition: filter 0.3s;
+  }
+  .tool-card:hover .tool-logo { filter: grayscale(0); }
+  .tool-card-name {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .tool-emoji { font-size: 1.8rem; line-height: 1; }
 </style>
 </head>
 <body>
+
+<!-- BANNER DISPONIBLE -->
+<div class="available-banner">
+  <span class="available-dot"></span>
+  Disponible para trabajar
+</div>
 
 <nav>
   <div class="nav-logo">B.</div>
@@ -577,7 +652,10 @@
     <div class="hero-eyebrow fade-in">Técnico Superior en Administración y Finanzas · IA</div>
     <h1 class="fade-in delay-1">Hola,<br>soy <span>Brenda</span></h1>
     <p class="hero-desc fade-in delay-2">Técnico Superior en Administración y Finanzas con experiencia en banca y gestión documental, especializándome ahora en Inteligencia Artificial para llevar la eficiencia operativa al siguiente nivel.</p>
-    <a href="#proyectos" class="hero-cta fade-in delay-3">Ver mis proyectos →</a>
+    <div style="display:flex; gap:1rem; flex-wrap:wrap;" class="fade-in delay-3">
+      <a href="#proyectos" class="hero-cta">Ver mis proyectos →</a>
+      <a href="https://brenda-fernandez02.github.io/Portfolio.Brenda.Fernandez/Brenda_Fernandez_Administrativa.pdf" target="_blank" class="hero-cta" style="background:transparent; border:1px solid var(--border); color:var(--text);">↓ Descargar CV</a>
+    </div>
   </div>
   <div class="hero-visual fade-in delay-4">
     <div class="orb"></div>
@@ -655,6 +733,55 @@
       <span class="skill-icon">◑</span>
       <div class="skill-name">Atención al Cliente</div>
       <div class="skill-desc">Experiencia en entornos bancarios y de captación. Comunicación asertiva, resolución de incidencias y gestión CRM.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HERRAMIENTAS -->
+<section class="tools-section">
+  <div class="section-label">— Herramientas</div>
+  <h2>Con lo que trabajo</h2>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" class="tool-logo" alt="ChatGPT">
+      <span class="tool-card-name">ChatGPT</span>
+    </div>
+    <div class="tool-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Claude_ai_logo.svg" class="tool-logo" alt="Claude">
+      <span class="tool-card-name">Claude</span>
+    </div>
+    <div class="tool-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" class="tool-logo" alt="Gemini">
+      <span class="tool-card-name">Gemini</span>
+    </div>
+    <div class="tool-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" class="tool-logo" alt="Excel">
+      <span class="tool-card-name">Excel</span>
+    </div>
+    <div class="tool-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Notion-logo.svg" class="tool-logo" alt="Notion">
+      <span class="tool-card-name">Notion</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-emoji">⚡</span>
+      <span class="tool-card-name">Make</span>
+    </div>
+    <div class="tool-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Zapier_logo.svg" class="tool-logo" alt="Zapier">
+      <span class="tool-card-name">Zapier</span>
+    </div>
+    <div class="tool-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Canva_Logo_2021.png" class="tool-logo" alt="Canva">
+      <span class="tool-card-name">Canva IA</span>
+    </div>
+    <div class="tool-card">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" class="tool-logo" alt="Midjourney" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span style="display:none" class="tool-emoji">🎨</span>
+      <span class="tool-card-name">Midjourney</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-emoji">🔍</span>
+      <span class="tool-card-name">Perplexity</span>
     </div>
   </div>
 </section>
@@ -913,6 +1040,33 @@
   });
 
   aplicarCoverflow();
+  window.addEventListener('resize', aplicarCoverflow);
+
+  // CONTADOR ANIMADO
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.stat-num').forEach(el => {
+          const raw = el.textContent.trim();
+          const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+          const suffix = raw.replace(/[0-9.]/g, '');
+          if (isNaN(num) || raw === 'B2') return;
+          let start = 0;
+          const duration = 1400;
+          const step = 16;
+          const increment = num / (duration / step);
+          const timer = setInterval(() => {
+            start += increment;
+            if (start >= num) { start = num; clearInterval(timer); }
+            el.textContent = Math.floor(start) + suffix;
+          }, step);
+        });
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const statsGrid = document.querySelector('.stats-grid');
+  if (statsGrid) statsObserver.observe(statsGrid);
 </script>
 
 <script>
