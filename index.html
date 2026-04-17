@@ -31,6 +31,7 @@
     overflow-x: hidden;
   }
 
+  /* NAVEGACIÓN */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -43,13 +44,7 @@
     background: rgba(10,10,15,0.85);
     backdrop-filter: blur(12px);
   }
-  .nav-logo {
-    font-family: var(--font-head);
-    font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: -0.02em;
-    color: var(--accent);
-  }
+  .nav-logo { font-family: var(--font-head); font-weight: 800; font-size: 1.1rem; color: var(--accent); }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
     color: var(--muted);
@@ -61,6 +56,7 @@
   }
   .nav-links a:hover { color: var(--text); }
 
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: grid;
@@ -70,15 +66,6 @@
     position: relative;
     overflow: hidden;
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    top: -200px; right: -200px;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(123,92,240,0.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
   .hero-text { position: relative; z-index: 1; }
   .hero-eyebrow {
     font-size: 0.75rem;
@@ -86,352 +73,18 @@
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
+    display: flex; align-items: center; gap: 0.8rem;
   }
-  .hero-eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 28px; height: 1px;
-    background: var(--accent);
-  }
-  h1 {
-    font-family: var(--font-head);
-    font-size: clamp(3rem, 6vw, 5.5rem);
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    margin-bottom: 1.5rem;
-  }
-  h1 span {
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(200,240,96,0.6);
-  }
-  .hero-desc {
-    font-size: 1.05rem;
-    color: var(--muted);
-    max-width: 420px;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
-  }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--accent); }
+  h1 { font-family: var(--font-head); font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; line-height: 1; margin-bottom: 1.5rem; }
+  h1 span { color: transparent; -webkit-text-stroke: 1.5px rgba(200,240,96,0.6); }
+  .hero-desc { font-size: 1.05rem; color: var(--muted); max-width: 420px; margin-bottom: 2.5rem; }
   .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: var(--accent);
-    color: #0a0a0f;
-    padding: 0.85rem 2rem;
-    border-radius: 2px;
-    font-family: var(--font-head);
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.04em;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex; align-items: center; gap: 0.6rem; background: var(--accent); color: #0a0a0f;
+    padding: 0.85rem 2rem; border-radius: 2px; font-weight: 700; text-decoration: none; transition: 0.3s;
   }
-  .hero-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(200,240,96,0.25);
-  }
-  .hero-visual {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-  }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(200,240,96,0.25); }
+
+  .hero-visual { display: flex; justify-content: center; align-items: center; position: relative; }
   .orb {
-    width: 320px; height: 320px;
-    border-radius: 50%;
-    background: conic-gradient(from 180deg at 50% 50%,
-      #7b5cf0 0deg, #c8f060 120deg, #7b5cf0 240deg, #c8f060 360deg);
-    filter: blur(60px);
-    opacity: 0.5;
-    animation: spin 12s linear infinite;
-  }
-  .orb-inner {
-    position: absolute;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: var(--surface);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--border);
-    overflow: hidden;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  section { padding: 6rem 3rem; }
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-  h2 {
-    font-family: var(--font-head);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: 3rem;
-  }
-
-  /* PROYECTOS - CARRUSEL MEJORADO */
-  .carousel-outer { position: relative; }
-  .carousel-track-wrap {
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    background: radial-gradient(circle at center, rgba(255,255,255,0.03), rgba(0,0,0,0.2));
-    padding: 2.5rem 0;
-  }
-  .projects-grid {
-    display: flex;
-    gap: 1.5rem;
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    will-change: transform;
-    padding: 0 10%;
-  }
-
-  .project-card {
-    min-width: 75%;
-    max-width: 75%;
-    flex-shrink: 0;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s ease;
-    opacity: 0.4;
-    transform: scale(0.9);
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* EFECTO DORADO Y CURVATURA DE LAS IMÁGENES */
-  .project-card.active {
-    opacity: 1;
-    transform: scale(1.05);
-    border: 1px solid rgba(200, 240, 96, 0.4);
-    box-shadow: 
-        0 -15px 35px -10px rgba(200, 240, 96, 0.25), 
-        0 15px 35px -10px rgba(123, 92, 240, 0.2);
-    z-index: 10;
-  }
-
-  /* Brillo superior tipo cristal */
-  .project-card.active::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 10%; right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #c8f060, transparent);
-    filter: blur(1px);
-    z-index: 5;
-  }
-
-  .video-wrapper {
-    position: relative;
-    background: #000;
-    aspect-ratio: 16 / 9;
-    border-bottom: 1px solid var(--border);
-  }
-  .video-wrapper video { width: 100%; height: 100%; object-fit: cover; }
-  .video-badge {
-    position: absolute;
-    top: 1rem; left: 1rem;
-    background: var(--accent);
-    color: #0a0a0f;
-    font-size: 0.6rem;
-    font-weight: 800;
-    padding: 0.25rem 0.6rem;
-    border-radius: 2px;
-    z-index: 5;
-  }
-  .project-info { padding: 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
-  .project-tag { color: var(--accent2); font-size: 0.65rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; }
-  .project-title { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 0.8rem; }
-  .project-desc { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
-
-  .carousel-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 2rem;
-    padding: 0 1rem;
-  }
-  .carousel-btn {
-    width: 48px; height: 48px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,0.05);
-    color: var(--text);
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .carousel-btn:hover:not(:disabled) { border-color: var(--accent); background: rgba(200,240,96,0.1); transform: scale(1.1); }
-  .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: 0.3s; }
-  .carousel-dot.active { background: var(--accent); transform: scale(1.6); }
-
-  /* OTROS ESTILOS */
-  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid var(--border); }
-  .stat { padding: 1.5rem; background: var(--surface); }
-  .stat-num { font-family: var(--font-head); font-size: 2.5rem; color: var(--accent); font-weight: 800; }
-  
-  .timeline { position: relative; padding-left: 2rem; border-left: 1px solid var(--border); }
-  .timeline-item { position: relative; padding-bottom: 3rem; }
-  .timeline-item::before { content: ''; position: absolute; left: calc(-2rem - 5px); top: 8px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
-
-  .contact-link {
-    padding: 1rem 2rem;
-    border: 1px solid var(--border);
-    text-decoration: none;
-    color: var(--text);
-    text-transform: uppercase;
-    font-weight: 700;
-    transition: 0.3s;
-  }
-  .contact-link.primary { background: var(--accent); color: #000; border-color: var(--accent); }
-
-  @media (max-width: 768px) {
-    .hero { grid-template-columns: 1fr; text-align: center; }
-    .hero-visual { order: -1; margin-bottom: 2rem; }
-    .project-card { min-width: 85%; }
-  }
-</style>
-</head>
-<body>
-
-<nav>
-  <div class="nav-logo">B.</div>
-  <ul class="nav-links">
-    <li><a href="#sobre-mi">Sobre mí</a></li>
-    <li><a href="#proyectos">Proyectos</a></li>
-    <li><a href="#formacion">Formación</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-</nav>
-
-<section class="hero">
-  <div class="hero-text">
-    <div class="hero-eyebrow">Técnico Superior · IA</div>
-    <h1>Hola,<br>soy <span>Brenda</span></h1>
-    <p class="hero-desc">Administración y Finanzas + Inteligencia Artificial. Optimizando procesos con tecnología de vanguardia.</p>
-    <a href="#proyectos" class="hero-cta">Explorar Proyectos →</a>
-  </div>
-  <div class="hero-visual">
-    <div class="orb"></div>
-    <div class="orb-inner">
-      <img src="foto.jpg" alt="Brenda" style="width:100%; height:100%; object-fit:cover;" onerror="this.parentElement.innerHTML='<span style=\'color:var(--accent);font-size:4rem;font-weight:800;\'>B</span>'">
-    </div>
-  </div>
-</section>
-
-<section id="proyectos">
-  <div class="section-label">— Portfolio</div>
-  <h2>Proyectos Destacados</h2>
-  
-  <div class="carousel-outer">
-    <div class="carousel-track-wrap">
-      <div class="projects-grid" id="carrusel">
-
-        <div class="project-card">
-          <div class="video-wrapper">
-            <video controls preload="metadata" playsinline>
-              <source src="avatar.mp4" type="video/mp4">
-            </video>
-            <div class="video-badge">IA Video</div>
-          </div>
-          <div class="project-info">
-            <div class="project-tag">Generative AI</div>
-            <div class="project-title">Avatar IA Personalizado</div>
-            <div class="project-desc">Creación de un avatar digital con sincronización de voz y movimiento para comunicación corporativa.</div>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-info">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">📄</div>
-            <div class="project-tag">Administración</div>
-            <div class="project-title">TFG: Enigma Room, S.L.</div>
-            <div class="project-desc">Plan de negocio integral, desde análisis financiero hasta estrategias de marketing.</div>
-            <a href="TFG_BRENDA.pdf" target="_blank" class="contact-link" style="font-size: 0.7rem; padding: 0.5rem 1rem; margin-top: auto;">Ver PDF</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-info">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
-            <div class="project-tag">Finanzas</div>
-            <div class="project-title">Contabilidad Avanzada</div>
-            <div class="project-desc">Modelado financiero en Excel con automatización de balances y tablas dinámicas.</div>
-            <a href="Contabilidad.xlsx" target="_blank" class="contact-link" style="font-size: 0.7rem; padding: 0.5rem 1rem; margin-top: auto;">Ver Excel</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="carousel-controls">
-      <button class="carousel-btn" id="prev" onclick="moverCarrusel(-1)">←</button>
-      <div class="carousel-dots" id="dots"></div>
-      <button class="carousel-btn" id="next" onclick="moverCarrusel(1)">→</button>
-    </div>
-  </div>
-</section>
-
-<section id="contacto" class="contact-section">
-  <h2>¿Trabajamos juntos?</h2>
-  <p>Disponible para proyectos que unan gestión empresarial e IA.</p>
-  <div style="margin-top: 2rem;">
-    <a href="mailto:brendafernandezsanchez5@gmail.com" class="contact-link primary">Enviar Email</a>
-  </div>
-</section>
-
-<script>
-  const track = document.getElementById('carrusel');
-  const cards = [...track.querySelectorAll('.project-card')];
-  const dotsContainer = document.getElementById('dots');
-  let current = 0;
-
-  function crearDots() {
-    cards.forEach((_, i) => {
-      const d = document.createElement('div');
-      d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-      d.onclick = () => irA(i);
-      dotsContainer.appendChild(d);
-    });
-  }
-
-  function irA(idx) {
-    current = Math.max(0, Math.min(idx, cards.length - 1));
-    
-    // Cálculo para centrar la tarjeta activa
-    const cardWidth = cards[0].offsetWidth;
-    const gap = 24; // 1.5rem
-    const offset = current * (cardWidth + gap);
-    
-    track.style.transform = `translateX(-${offset}px)`;
-    
-    cards.forEach((c, i) => c.classList.toggle('active', i === current));
-    document.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === current));
-    
-    document.getElementById('prev').disabled = current === 0;
-    document.getElementById('next').disabled = current === cards.length - 1;
-  }
-
-  function moverCarrusel(dir) { irA(current + dir); }
-
-  crearDots();
-  irA(0);
-  
-  // Re-ajustar al cambiar tamaño de ventana
-  window.addEventListener('resize', () => irA(current));
-</script>
-
-</body>
-</html>
+    width: 320px; height: 320px; border-radius: 50
