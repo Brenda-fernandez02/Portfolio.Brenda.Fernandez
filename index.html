@@ -591,40 +591,70 @@
 
   /* SECCIÓN HERRAMIENTAS */
   .tools-section { background: var(--bg); }
-  .tools-grid {
+  .tools-categories {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 1px;
-    border: 1px solid var(--border);
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
   }
-  .tool-card {
-    padding: 1.5rem 1rem;
+  .tools-category {
     background: var(--surface);
     border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+  .tools-cat-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .tools-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+  }
+  .tools-category:nth-child(2) .tools-cat-grid,
+  .tools-category:nth-child(3) .tools-cat-grid {
+    grid-template-columns: 1fr;
+  }
+  .tool-card {
+    padding: 1rem 0.8rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
-    transition: background 0.3s, transform 0.2s;
+    gap: 0.5rem;
+    transition: background 0.2s, transform 0.2s, border-color 0.2s;
     text-align: center;
+    cursor: default;
   }
   .tool-card:hover {
-    background: rgba(200,240,96,0.04);
+    background: rgba(200,240,96,0.06);
+    border-color: rgba(200,240,96,0.25);
     transform: translateY(-3px);
   }
   .tool-logo {
-    width: 36px; height: 36px;
+    width: 32px; height: 32px;
     object-fit: contain;
-    filter: grayscale(0.3);
-    transition: filter 0.3s;
   }
-  .tool-card:hover .tool-logo { filter: grayscale(0); }
   .tool-card-name {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     color: var(--muted);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
   }
-  .tool-emoji { font-size: 1.8rem; line-height: 1; }
+  .tool-emoji { font-size: 1.6rem; line-height: 1; }
+
+  @media (max-width: 768px) {
+    .tools-categories { grid-template-columns: 1fr; }
+    .tools-category:nth-child(2) .tools-cat-grid,
+    .tools-category:nth-child(3) .tools-cat-grid { grid-template-columns: repeat(3, 1fr); }
+  }
 
   /* CERTIFICADOS */
   .certs-subtitle {
@@ -853,48 +883,78 @@
 <section class="tools-section">
   <div class="section-label">— Herramientas</div>
   <h2>Con lo que trabajo</h2>
-  <div class="tools-grid">
-    <div class="tool-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" class="tool-logo" alt="ChatGPT">
-      <span class="tool-card-name">ChatGPT</span>
+
+  <div class="tools-categories">
+
+    <!-- CATEGORÍA IA -->
+    <div class="tools-category">
+      <div class="tools-cat-label">Inteligencia Artificial</div>
+      <div class="tools-cat-grid">
+        <div class="tool-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" class="tool-logo" alt="ChatGPT">
+          <span class="tool-card-name">ChatGPT</span>
+        </div>
+        <div class="tool-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Claude_ai_logo.svg" class="tool-logo" alt="Claude">
+          <span class="tool-card-name">Claude</span>
+        </div>
+        <div class="tool-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" class="tool-logo" alt="Gemini">
+          <span class="tool-card-name">Gemini</span>
+        </div>
+        <div class="tool-card">
+          <span class="tool-emoji">🔍</span>
+          <span class="tool-card-name">Perplexity</span>
+        </div>
+        <div class="tool-card">
+          <span class="tool-emoji">🎨</span>
+          <span class="tool-card-name">Midjourney</span>
+        </div>
+        <div class="tool-card">
+          <span class="tool-emoji">🪟</span>
+          <span class="tool-card-name">Copilot</span>
+        </div>
+      </div>
     </div>
-    <div class="tool-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Claude_ai_logo.svg" class="tool-logo" alt="Claude">
-      <span class="tool-card-name">Claude</span>
+
+    <!-- CATEGORÍA AUTOMATIZACIÓN -->
+    <div class="tools-category">
+      <div class="tools-cat-label">Automatización</div>
+      <div class="tools-cat-grid">
+        <div class="tool-card">
+          <span class="tool-emoji">⚡</span>
+          <span class="tool-card-name">Make</span>
+        </div>
+        <div class="tool-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Zapier_logo.svg" class="tool-logo" alt="Zapier">
+          <span class="tool-card-name">Zapier</span>
+        </div>
+        <div class="tool-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Notion-logo.svg" class="tool-logo" alt="Notion">
+          <span class="tool-card-name">Notion</span>
+        </div>
+      </div>
     </div>
-    <div class="tool-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" class="tool-logo" alt="Gemini">
-      <span class="tool-card-name">Gemini</span>
+
+    <!-- CATEGORÍA OFIMÁTICA -->
+    <div class="tools-category">
+      <div class="tools-cat-label">Ofimática y diseño</div>
+      <div class="tools-cat-grid">
+        <div class="tool-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" class="tool-logo" alt="Excel">
+          <span class="tool-card-name">Excel</span>
+        </div>
+        <div class="tool-card">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Canva_Logo_2021.png" class="tool-logo" alt="Canva">
+          <span class="tool-card-name">Canva IA</span>
+        </div>
+        <div class="tool-card">
+          <span class="tool-emoji">📊</span>
+          <span class="tool-card-name">Google Docs</span>
+        </div>
+      </div>
     </div>
-    <div class="tool-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" class="tool-logo" alt="Excel">
-      <span class="tool-card-name">Excel</span>
-    </div>
-    <div class="tool-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Notion-logo.svg" class="tool-logo" alt="Notion">
-      <span class="tool-card-name">Notion</span>
-    </div>
-    <div class="tool-card">
-      <span class="tool-emoji">⚡</span>
-      <span class="tool-card-name">Make</span>
-    </div>
-    <div class="tool-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Zapier_logo.svg" class="tool-logo" alt="Zapier">
-      <span class="tool-card-name">Zapier</span>
-    </div>
-    <div class="tool-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Canva_Logo_2021.png" class="tool-logo" alt="Canva">
-      <span class="tool-card-name">Canva IA</span>
-    </div>
-    <div class="tool-card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" class="tool-logo" alt="Midjourney" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-      <span style="display:none" class="tool-emoji">🎨</span>
-      <span class="tool-card-name">Midjourney</span>
-    </div>
-    <div class="tool-card">
-      <span class="tool-emoji">🔍</span>
-      <span class="tool-card-name">Perplexity</span>
-    </div>
+
   </div>
 </section>
 
